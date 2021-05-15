@@ -9,6 +9,8 @@ const auth_token = process.env.BEEMINDER_AUTH_TOKEN;
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 const createDataPoint = value => {
+  const now = new Date();
+  const comment = now.toDateString() + ' ' + now.toLocaleTimeString();
   const options = {
     method: 'POST',
     url:
@@ -19,7 +21,9 @@ const createDataPoint = value => {
       '/datapoints.json?auth_token=' +
       auth_token +
       '&value=' +
-      value
+      value +
+      '&comment=' +
+      comment
   };
   axios(options)
     .then(res => {
@@ -41,7 +45,6 @@ const getPageCount = page => {
     blockResponse.results.forEach(block => {
       block.paragraph.text.forEach(text => {
         count += text.plain_text.split(' ').length;
-        // console.log(text.plain_text);
       });
     });
     return Promise.resolve(count);
@@ -63,7 +66,7 @@ const queryJournal = async () => {
   };
   count(pageResponse).then(counts => {
     let total = counts.reduce((a, b) => a + b);
-    console.log(total);
+    console.log(total + ' words counted');
     createDataPoint(total);
   });
 };
