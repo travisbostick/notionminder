@@ -14,7 +14,7 @@ Both require:
 
 The Scriptable script in the "Scriptable" folder is triggered by a Siri Shortcut that can be found here: https://routinehub.co/shortcut/9166/
 
-Input the information above in the dictionary and select the write Scriptable script to run within the shortcut.
+Input the information above in the dictionary and select the right Scriptable script to run within the shortcut.
 
 ## NodeJS
 
