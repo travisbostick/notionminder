@@ -43,9 +43,11 @@ const getPageCount = page => {
       page_size: 50
     });
     blockResponse.results.forEach(block => {
-      block.paragraph.text.forEach(text => {
-        count += text.plain_text.split(' ').length;
-      });
+      if (block.paragraph) {
+        block.paragraph.text.forEach(text => {
+          count += text.plain_text.split(' ').length;
+        });
+      }
     });
     return Promise.resolve(count);
   };
