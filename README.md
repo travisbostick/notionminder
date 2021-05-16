@@ -20,6 +20,6 @@ Input the information above in the dictionary and select the right Scriptable sc
 
 Install modules with `npm i`.
 
-Replace the information above in the `.env` file.
+Replace the information above in the `.env` file. Do not include quotations or line breaks.
 
 Run with `node index.js`.
