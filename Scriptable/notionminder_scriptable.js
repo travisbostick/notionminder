@@ -2,8 +2,7 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: yellow; icon-glyph: pencil-alt;
 const database_id = args.shortcutParameter.database_id;
-const notion_api_key =
-  'Bearer ' + args.shortcutParameter.notion_api_key;
+const notion_api_key = 'Bearer ' + args.shortcutParameter.notion_api_key;
 const beeminder_auth_token = args.shortcutParameter.beeminder_auth_token;
 const goal_name = args.shortcutParameter.goal_name;
 const username = args.shortcutParameter.username;
@@ -27,7 +26,7 @@ const createDataPoint = async value => {
   datapoint.method = 'POST';
   const datapointResults = await datapoint.loadJSON();
   console.log(datapointResults);
-  Script.complete()
+  Script.complete();
 };
 
 const getPageCount = page => {
@@ -40,9 +39,11 @@ const getPageCount = page => {
     getPageText.headers = headers;
     const blockResponse = await getPageText.loadJSON();
     blockResponse.results.forEach(block => {
-      block.paragraph.text.forEach(text => {
-        count += text.plain_text.split(' ').length;
-      });
+      if (block.paragraph) {
+        block.paragraph.text.forEach(text => {
+          count += text.plain_text.split(' ').length;
+        });
+      }
     });
     return Promise.resolve(count);
   };
@@ -65,7 +66,7 @@ const queryJournal = async () => {
   };
   count(pageResponse).then(counts => {
     let total = counts.reduce((a, b) => a + b);
-    createDataPoint(total)
+    createDataPoint(total);
   });
 };
 
