@@ -39,11 +39,11 @@ const getPageCount = page => {
     getPageText.headers = headers;
     const blockResponse = await getPageText.loadJSON();
     blockResponse.results.forEach(block => {
-      if (block.paragraph) {
-        block.paragraph.text.forEach(text => {
+      const content = block[block.type];
+      content.text &&
+        content.text.forEach(text => {
           count += text.plain_text.split(' ').length;
         });
-      }
     });
     return Promise.resolve(count);
   };
